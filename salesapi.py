@@ -46,13 +46,13 @@ def create_sale():
 
     time = dt.datetime.now()
     sale_data = {
-        form[field] for field in required_fields
+        field: form[field] for field in required_fields
     } | {
-        form.get(field, None) for field in optional_fields
+        field: form.get(field, None) for field in optional_fields
     }
 
     _, doc = db.collection('sales').add(sale_data)  # initial data
-    db.collection('sales').document(doc.id).set({  # document-related data
+    db.collection('sales').document(doc.id).update({  # document-related data
         "sid": doc.id,
         "createDate": time,
     })
