@@ -1,0 +1,7 @@
+{
+    "sid": "string",
+    "game": "string",
+    "user": "string",
+    "soldFor": "number",
+    "createDate": "date-time"
+}
