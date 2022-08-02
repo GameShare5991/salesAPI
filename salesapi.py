@@ -40,7 +40,7 @@ def get_sale(sid):
 
 
 @app.route('/sales/user/<uid>', methods=['GET'])
-def get_sale(uid):
+def get_sale_by_user(uid):
     """ Returns sales referenced by 'uid' in Firestore collection. """
     data = db.collection('sales').where('uid', '==', uid).get()
     sales = [doc.to_dict() for doc in data]
