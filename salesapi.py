@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 required_fields = "game", "user", "soldFor"
-optional_fields = ()
+optional_fields = ("img",)
 
 
 # ----- API FUNCTIONALITY
@@ -42,7 +42,7 @@ def get_sale(sid):
 @app.route('/sales/user/<uid>', methods=['GET'])
 def get_sale_by_user(uid):
     """ Returns sales referenced by 'uid' in Firestore collection. """
-    data = db.collection('sales').where('uid', '==', uid).get()
+    data = db.collection('sales').where('user', '==', uid).get()
     sales = [doc.to_dict() for doc in data]
     return json.dumps(sales, indent=4, sort_keys=True, default=str)
 

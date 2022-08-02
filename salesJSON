@@ -1,6 +1,7 @@
 {
     "sid": "string",
     "game": "string",
+    "img": "string",
     "user": "string",
     "soldFor": "number",
     "createDate": "date-time"
