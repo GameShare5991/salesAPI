@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salesapi-deployment
+  labels:
+    app: salesapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: salesapi
+  template:
+    metadata:
+      labels:
+        app: salesapi
+    spec:
+      containers:
+        - name: salesapi
+          image: jackjackzhou/sales-api
+          # imagePullPolicy: Never
+          ports:
+            - containerPort: 4005
+          volumeMounts:
+            - name: sales-app-key
+              mountPath: “/app”
+              readOnly: true
+      volumes:
+        - name: sales-app-key
+          secret:
+            secretName: sales-app-key
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sales-service
+spec:
+  ports:
+  - port: 4005
+    targetPort: 4005
+  selector:
+    app: salesapi
+  type: LoadBalancer
